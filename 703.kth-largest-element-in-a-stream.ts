@@ -1,0 +1,33 @@
+/*
+ * @lc app=leetcode id=703 lang=typescript
+ *
+ * [703] Kth Largest Element in a Stream
+ */
+
+// @lc code=start
+class KthLargest {
+  #k: number = 0;
+  #minQ = new MinPriorityQueue();
+
+  constructor(k: number, nums: number[]) {
+    this.#k = k;
+    for (const x of nums) {
+      this.add(x);
+    }
+  }
+
+  add(val: number): number {
+    this.#minQ.enqueue(val);
+    if (this.#minQ.size() > this.#k) {
+      this.#minQ.dequeue();
+    }
+    return this.#minQ.front().element;
+  }
+}
+
+/**
+ * Your KthLargest object will be instantiated and called as such:
+ * var obj = new KthLargest(k, nums)
+ * var param_1 = obj.add(val)
+ */
+// @lc code=end
